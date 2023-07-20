@@ -1,0 +1,50 @@
+.profile-details {
+  /* width: 100px;
+    height: 30px; */
+  /* display: flex;
+    align-items: center; */
+  justify-content: center;
+  /* background: pink; */
+  border-radius: 3px;
+  text-decoration: none;
+  /* flex-direction: column; */
+  /* // color: "white"; */
+}
+
+.profile-details p {
+  margin: 0 !important;
+  text-align: center;
+  font-size: 12px;
+}
+
+.profile-details a {
+  color: white;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.card {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border-radius: 4px;
+  transition: all 350ms;
+  transform: scale(1);
+}
+
+.card:hover {
+  transform: scale(1.03);
+  cursor: pointer;
+}
+
+.card h4 {
+  margin: 0 !important;
+}
+
+.imgStyle {
+  width: 60px;
+  border-radius: 2em;
+}

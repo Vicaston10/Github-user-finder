@@ -1,0 +1,49 @@
+.card-light {
+    background: #a83535;
+    color: wheat;
+}
+
+.card-dark {
+    background: wheat;
+    color: #a83535;
+}
+
+.btn-light {
+    background: wheat;
+    color: #a83535;
+}
+
+.btn-dark {
+    background: #a83535;
+    color: wheat;
+}
+
+.searchBtn-dark {
+    background-color: wheat;
+    color: #a83535;
+}
+
+.searchBtn-light {
+    background-color: #a83535;
+    color: wheat;
+}
+
+.Btn-light {
+    background: wheat;
+    color: #a83535;
+    border: 1px solid #a83535;
+}
+
+.Btn-dark {
+    background: #a83535;
+    color: wheat;
+    border: 1px solid wheat;
+}
+
+.body-dark {
+    background: black;
+}
+
+.body-light {
+    background: white;
+}
