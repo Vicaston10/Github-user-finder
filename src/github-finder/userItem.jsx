@@ -1,50 +1,55 @@
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import User from "./user";
 import Search from "./search";
-import { ThemeContext } from "./context/ThemeProvider";
 import "./userItem.css";
 
 const UserItem = () => {
   const [users, setUsers] = useState([]);
   const [text, setText] = useState("");
   const [loading, SetLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const { darkMode } = useContext(ThemeContext);
-  const [pageData, setPageDate] = useState({});
   const [nextPage, setNextPage] = useState(1);
 
   const url = "https://api.github.com/users";
+  const searchUsers = async () => {
+    if (text?.length) {
+     await filterUsers();
+    } else {
+     await getUsers();
+    }
+  };
 
-  const updateUsers = async () => {
-    // const response = await fetch(url);
-    const response = await fetch(`${url}?page=${nextPage}`);
+  const getUsers = async () => {
+    const response = await fetch(`https://api.github.com/users?page=${nextPage}`);
     console.log(response, "this is my response");
     const user = await response.json();
     setUsers(user);
     SetLoading(false);
   };
 
-  const searchUsers = useCallback(async () => {
+  const filterUsers = useCallback(async () => {
     SetLoading(true);
-    // const urlSearch = `https://api.github.com/search/users?q=${text}`;
     const urlSearch = `https://api.github.com/search/users?q=${text}&page=${nextPage}`;
     const response = await fetch(urlSearch);
     const data = await response.json();
-    console.log(data.items);
     SetLoading(false);
     setUsers(data.items);
-  }, [text, page]);
+  }, [text, nextPage]);
 
-  const clearUsers = () => {
+  const changeSearchPage = async (pageNo) => {
+    pageNo = pageNo < 1 ? 1 : pageNo;
+    setNextPage(pageNo);
+    await searchUsers();
+  };
+
+  const clearUsers = async () => {
     setUsers([]);
-    SetLoading(false);
+    setNextPage(1);
+    setText("");
+    await searchUsers();
   };
 
   useEffect(() => {
-    updateUsers();
-    if (text?.length) {
-      searchUsers();
-    }
+    searchUsers();
   }, [text]);
 
   return (
@@ -66,44 +71,24 @@ const UserItem = () => {
             <div className="loading-spinner"></div>
           </div>
         ) : (
-          <div className="styleList">
-            {users?.length > 1 ? (
-              users?.map((user) => <User key={user.id} user={user} />)
-            ) : (
-              <p>No user available</p>
-            )}
-          </div>
+            users?.length >= 1 ? <div className="styleList">
+                {users?.map((user) => <User key={user?.id} user={user} />)}
+            </div> : <div className="userListContainer">
+                <p>No user available</p>
+            </div>
         )}
       </div>
       {users?.length >= 30 && (
         <section className="btn-container">
-          <button onClick={(prev) => setNextPage(prev - 1)}> Previous </button>
-          <button onClick={(prev) => setNextPage(prev + 1)}> Next </button>
+          <button onClick={() => changeSearchPage(nextPage - 1)}>
+            {" "}
+            Previous{" "}
+          </button>
+          <button onClick={() => changeSearchPage(nextPage + 1)}> Next </button>
         </section>
       )}
     </React.Fragment>
   );
 };
-
-// const styleList = {
-//   display: "flex",
-//   justifyContent: "center",
-//   alignItems: "center",
-//   flexWrap: "wrap",
-// };
-
-// const searchBtn = {
-//   width: "100px",
-//   height: "30px",
-//   // background: "#a83535",
-//   // color: "white",
-//   outline: "none",
-//   border: "0",
-//   borderRadius: "3px",
-//   cursor: "pointer",
-//   position: "fixed",
-//   right: "0px",
-//   bottom: "0px",
-// };
 
 export default UserItem;

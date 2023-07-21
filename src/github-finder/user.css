@@ -33,6 +33,7 @@
   border-radius: 4px;
   transition: all 350ms;
   transform: scale(1);
+  background-color: #a83535;
 }
 
 .card:hover {

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { ThemeContext } from "./context/ThemeProvider";
 import "./theme.css";
-import "./search.css"
+import "./search.css";
 const Search = (props) => {
   const { darkMode } = useContext(ThemeContext);
 
@@ -13,14 +13,14 @@ const Search = (props) => {
 
   return (
     <React.Fragment>
-      <form onSubmit={onSubmit} className='form'>
+      <form onSubmit={onSubmit} className="form">
         <input
           type="text"
           name="text"
           placeholder="Search User"
           value={props.value}
           onChange={(event) => props.updateValue(event.target.value)}
-          className='inputStyle'
+          className="inputStyle"
         />
         <input
           type="submit"

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { ThemeContext } from "./context/ThemeProvider";
 import { useContext } from "react";
-import './navbar.css'
-
+import "./navbar.css";
 
 const Navbar = () => {
   const { darkMode, dispatch } = useContext(ThemeContext);
@@ -17,9 +16,8 @@ const Navbar = () => {
   };
   return (
     <div className="nav">
-      <a>Github Finder</a>
-      <div onClick={handleToggle} className='toggleBtn'>
-      </div>
+      <a className="nav">Github Finder</a>
+      <div onClick={handleToggle} className="toggleBtn"></div>
     </div>
   );
 };
