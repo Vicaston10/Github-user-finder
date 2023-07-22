@@ -1,15 +1,17 @@
 import React, { useState, useContext } from "react";
 import { ThemeContext } from "./context/ThemeProvider";
+import { debounce } from "lodash";
 import "./theme.css";
 import "./search.css";
+
 const Search = (props) => {
   const { darkMode } = useContext(ThemeContext);
 
-  const onSubmit = (e) => {
+  const onSubmit = debounce((e) => {
     e.preventDefault();
     props.searchUser(props.value);
     props.updateValue("");
-  };
+  }, 500);
 
   return (
     <React.Fragment>
